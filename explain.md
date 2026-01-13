@@ -1,12 +1,22 @@
-# 📚 อธิบายการทำงานของโค้ด JavaScript
+# JavaScript Code Explanation
 
-เอกสารนี้อธิบายการทำงานของโค้ดในแต่ละไฟล์ พร้อมแสดงผลลัพธ์ที่ได้
+เอกสารนี้อธิบายการทำงานของโค้ด JavaScript ในแต่ละส่วนที่ระบุ พร้อมแสดงผลลัพธ์ที่ได้
+
+## 📁 ไฟล์ทั้งหมด
+
+| ไฟล์ | ลิงก์ |
+|------|-------|
+| 01-variables.js | [คลิกดูไฟล์](./01-variables.js) |
+| 02-functions.js | [คลิกดูไฟล์](./02-functions.js) |
+| 03-control-flow.js | [คลิกดูไฟล์](./03-control-flow.js) |
+| 04-loops.js | [คลิกดูไฟล์](./04-loops.js) |
+| 05-integration.js | [คลิกดูไฟล์](./05-integration.js) |
 
 ---
 
-## 2.1 ไฟล์ `01-variables.js` - Challenge: Create a Person Object
+## 2.1 ไฟล์ [01-variables.js](./01-variables.js) - 6. Challenge: Create a Person Object
 
-### 📝 โค้ด
+### โค้ด
 
 ```javascript
 const student = {
@@ -31,7 +41,7 @@ console.log("Info:", student.getInfo());
 console.log("Courses:", student.courses.join(", "));
 ```
 
-### 📤 ผลลัพธ์
+### ผลลัพธ์
 
 ```
 Student object:
@@ -50,31 +60,25 @@ Info: Alice Smith, Age: 20, GPA: 3.8
 Courses: HTML, CSS, JavaScript
 ```
 
-### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-1. **สร้าง Object `student`** - เก็บข้อมูลนักศึกษาที่ประกอบด้วย:
-   - `firstName`, `lastName` - ชื่อและนามสกุล (String)
-   - `age` - อายุ (Number)
-   - `gpa` - เกรดเฉลี่ย (Number)
-   - `courses` - วิชาที่เรียน (Array)
-   - `isActive` - สถานะการเรียน (Boolean)
+1. **สร้าง Object `student`**: สร้าง Object ที่มี Properties หลายชนิด
+   - `firstName`, `lastName` เป็น String
+   - `age`, `gpa` เป็น Number
+   - `courses` เป็น Array ของ String
+   - `isActive` เป็น Boolean
 
-2. **Method `getFullName()`** - ฟังก์ชันภายใน Object ที่ใช้ `this` เพื่อเข้าถึง properties ของ Object ตัวเอง
-   - `this.firstName` คืนค่า "Alice"
-   - `this.lastName` คืนค่า "Smith"
-   - ใช้ Template Literal `` `${...}` `` รวมเป็น "Alice Smith"
+2. **Method `getFullName()`**: เป็นฟังก์ชันภายใน Object ที่ใช้ `this` เพื่ออ้างถึง Object ตัวเอง และคืนค่าชื่อเต็มโดยใช้ Template Literal `${this.firstName} ${this.lastName}`
 
-3. **Method `getInfo()`** - เรียกใช้ `this.getFullName()` เพื่อดึงชื่อเต็ม แล้วรวมกับข้อมูลอื่น
+3. **Method `getInfo()`**: เรียก `this.getFullName()` เพื่อนำชื่อเต็มมาใช้ และรวมกับข้อมูลอื่นๆ
 
-4. **`courses.join(", ")`** - แปลง Array เป็น String โดยคั่นด้วย ", "
+4. **`courses.join(", ")`**: แปลง Array เป็น String โดยคั่นด้วย ", "
 
 ---
 
-## 2.2 ไฟล์ `02-functions.js`
+## 2.2 ไฟล์ [02-functions.js](./02-functions.js) - 8. Returning Objects
 
-### 8. Returning Objects
-
-#### 📝 โค้ด
+### โค้ด
 
 ```javascript
 function createUser(firstName, lastName, age) {
@@ -92,15 +96,17 @@ function createUser(firstName, lastName, age) {
     },
   };
 }
+console.log("\nReturning Objects:");
 const newUser = createUser("John", "Doe", 30);
 console.log(newUser);
 console.log("Email:", newUser.email);
 console.log("Full name:", newUser.getFullName());
 ```
 
-#### 📤 ผลลัพธ์
+### ผลลัพธ์
 
 ```
+Returning Objects:
 {
   firstName: 'John',
   lastName: 'Doe',
@@ -113,29 +119,21 @@ Email: john.doe@example.com
 Full name: John Doe
 ```
 
-#### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-1. **ฟังก์ชัน `createUser`** รับ 3 parameters: `firstName`, `lastName`, `age`
+1. **Property Shorthand**: `firstName` คือการเขียนย่อของ `firstName: firstName` เมื่อชื่อ Property และ Variable เหมือนกัน
 
-2. **Property Shorthand** - เมื่อชื่อ property ตรงกับชื่อ variable สามารถเขียนย่อได้:
-   ```javascript
-   // แทนที่จะเขียน
-   { firstName: firstName, lastName: lastName }
-   // เขียนสั้นๆ ได้เป็น
-   { firstName, lastName }
-   ```
+2. **Computed Property**: `email` ถูกคำนวณจาก `firstName` และ `lastName` โดยแปลงเป็นตัวพิมพ์เล็กด้วย `.toLowerCase()`
 
-3. **สร้าง Email อัตโนมัติ** - ใช้ `toLowerCase()` แปลงเป็นตัวพิมพ์เล็ก แล้วรวมเป็นรูปแบบ email
+3. **Method Shorthand**: `getFullName()` คือการเขียนย่อของ `getFullName: function() {}`
 
-4. **Method Shorthand** - แทนที่จะเขียน `getFullName: function() {}` สามารถเขียนย่อเป็น `getFullName() {}`
-
-5. **ผลลัพธ์** - ฟังก์ชันคืนค่า Object ใหม่ที่มีข้อมูลและ methods พร้อมใช้งาน
+4. **Return Object**: ฟังก์ชัน `createUser` คืนค่าเป็น Object ที่สร้างขึ้นใหม่พร้อม Properties และ Methods
 
 ---
 
-### 9. Function as Parameter (Callback)
+## 2.2 ไฟล์ [02-functions.js](./02-functions.js) - 9. Function as Parameter (Callback)
 
-#### 📝 โค้ด
+### โค้ด
 
 ```javascript
 function processArray(arr, callback) {
@@ -148,125 +146,110 @@ function processArray(arr, callback) {
 const numbers = [1, 2, 3, 4, 5];
 const doubled = processArray(numbers, (x) => x * 2);
 const squared = processArray(numbers, (x) => x * x);
+console.log("\nCallback Function:");
 console.log("Original:", numbers);
 console.log("Doubled:", doubled);
 console.log("Squared:", squared);
 ```
 
-#### 📤 ผลลัพธ์
+### ผลลัพธ์
 
 ```
+Callback Function:
 Original: [ 1, 2, 3, 4, 5 ]
 Doubled: [ 2, 4, 6, 8, 10 ]
 Squared: [ 1, 4, 9, 16, 25 ]
 ```
 
-#### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-1. **Callback Function** คือ ฟังก์ชันที่ส่งเป็น parameter ให้กับฟังก์ชันอื่น
+1. **Callback Function**: ฟังก์ชัน `processArray` รับ Array และ Callback Function เป็น Parameter
 
-2. **ฟังก์ชัน `processArray`** รับ 2 parameters:
-   - `arr` - Array ที่ต้องการประมวลผล
-   - `callback` - ฟังก์ชันที่จะทำกับแต่ละ element
+2. **การทำงาน**:
+   - วนลูปแต่ละ item ใน Array
+   - เรียก `callback(item)` กับแต่ละ item
+   - เก็บผลลัพธ์ลงใน Array ใหม่
 
-3. **การทำงานทีละขั้น (Doubled)**:
-   | รอบที่ | item | callback(item) = x * 2 | result |
-   |--------|------|------------------------|--------|
-   | 1 | 1 | 1 * 2 = 2 | [2] |
-   | 2 | 2 | 2 * 2 = 4 | [2, 4] |
-   | 3 | 3 | 3 * 2 = 6 | [2, 4, 6] |
-   | 4 | 4 | 4 * 2 = 8 | [2, 4, 6, 8] |
-   | 5 | 5 | 5 * 2 = 10 | [2, 4, 6, 8, 10] |
-
-4. **ความยืดหยุ่น** - ใช้ฟังก์ชันเดียวกัน แค่เปลี่ยน callback ก็ได้ผลลัพธ์ต่างกัน
+3. **Arrow Function เป็น Callback**:
+   - `(x) => x * 2` คูณ 2: `[1,2,3,4,5]` → `[2,4,6,8,10]`
+   - `(x) => x * x` ยกกำลังสอง: `[1,2,3,4,5]` → `[1,4,9,16,25]`
 
 ---
 
-## 2.3 ไฟล์ `03-control-flow.js`
+## 2.3 ไฟล์ [03-control-flow.js](./03-control-flow.js) - 5. Short-Circuit Evaluation
 
-### 5. Short-Circuit Evaluation
-
-#### 📝 โค้ด
+### โค้ด
 
 ```javascript
+console.log("\nShort-Circuit Evaluation:");
 const user = { name: "John", age: 25 };
 const admin = null;
-
 // OR: use default value
 const userName = admin?.name || user.name || "Anonymous";
 console.log("User name:", userName);
-
 // AND: check before accessing
 const userProfile = user && user.profile;
 console.log("User profile:", userProfile);
 ```
 
-#### 📤 ผลลัพธ์
+### ผลลัพธ์
 
 ```
+Short-Circuit Evaluation:
 User name: John
 User profile: undefined
 ```
 
-#### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-**Short-Circuit Evaluation** คือ JavaScript หยุดประเมินค่าเมื่อรู้ผลลัพธ์แล้ว
+1. **Optional Chaining (`?.`)**: `admin?.name` ตรวจสอบว่า `admin` เป็น null/undefined หรือไม่
+   - ถ้า `admin` เป็น null → คืน `undefined` (ไม่เกิด error)
 
-1. **Optional Chaining (`?.`)** - เข้าถึง property อย่างปลอดภัย:
-   - `admin?.name` → admin เป็น `null` → คืนค่า `undefined` (ไม่ error)
+2. **OR Short-Circuit (`||`)**:
+   - `admin?.name` = `undefined` (falsy) → ข้ามไป
+   - `user.name` = `"John"` (truthy) → ใช้ค่านี้
+   - ผลลัพธ์: `"John"`
 
-2. **OR (`||`) Operator** - คืนค่าแรกที่เป็น truthy:
-   ```
-   admin?.name  →  undefined (falsy) → ข้ามไป
-   user.name    →  "John" (truthy)   → ใช้ค่านี้!
-   "Anonymous"  →  ไม่ถูกประเมิน
-   ```
-   **ผลลัพธ์**: `"John"`
+3. **AND Short-Circuit (`&&`)**:
+   - `user` = Object (truthy) → ดำเนินการต่อ
+   - `user.profile` = `undefined` (ไม่มี property นี้)
+   - ผลลัพธ์: `undefined`
 
-3. **AND (`&&`) Operator** - คืนค่าแรกที่เป็น falsy หรือค่าสุดท้าย:
-   ```
-   user         →  { name: "John", age: 25 } (truthy) → ไปต่อ
-   user.profile →  undefined (falsy)                   → คืนค่านี้
-   ```
-   **ผลลัพธ์**: `undefined`
+4. **หลักการ**:
+   - `||` คืนค่าแรกที่เป็น truthy หรือค่าสุดท้าย
+   - `&&` คืนค่าแรกที่เป็น falsy หรือค่าสุดท้าย
 
 ---
 
-### 7. Form Validation
+## 2.3 ไฟล์ [03-control-flow.js](./03-control-flow.js) - 7. Form Validation
 
-#### 📝 โค้ด
+### โค้ด
 
 ```javascript
 function validateRegistration(formData) {
   const errors = [];
-  
   // Validate name
   if (!formData.name || formData.name.trim() === "") {
     errors.push("Name is required");
   } else if (formData.name.length < 3) {
     errors.push("Name must be at least 3 characters");
   }
-  
   // Validate email
   if (!formData.email || formData.email.indexOf("@") === -1) {
     errors.push("Valid email is required");
   }
-  
   // Validate age
   if (!formData.age || formData.age < 18) {
     errors.push("Must be 18 or older");
   }
-  
   // Validate password
   if (!formData.password || formData.password.length < 6) {
     errors.push("Password must be at least 6 characters");
   }
-  
   // Check if agree to terms
   if (!formData.agreeToTerms) {
     errors.push("Must agree to terms");
   }
-  
   return {
     isValid: errors.length === 0,
     errors: errors,
@@ -280,7 +263,6 @@ const validUser = {
   password: "securepass123",
   agreeToTerms: true,
 };
-
 const invalidUser = {
   name: "Jo",
   email: "invalidemail",
@@ -288,14 +270,14 @@ const invalidUser = {
   password: "pass",
   agreeToTerms: false,
 };
-
 console.log("Valid user:", validateRegistration(validUser));
 console.log("Invalid user:", validateRegistration(invalidUser));
 ```
 
-#### 📤 ผลลัพธ์
+### ผลลัพธ์
 
 ```
+Form Validation:
 Valid user: { isValid: true, errors: [] }
 Invalid user: {
   isValid: false,
@@ -309,90 +291,80 @@ Invalid user: {
 }
 ```
 
-#### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-1. **สร้าง Array `errors`** เพื่อเก็บข้อผิดพลาดที่พบ
+1. **สร้าง Array เก็บ errors**: เริ่มต้นด้วย Array ว่าง
 
-2. **ตรวจสอบแต่ละ field**:
+2. **ตรวจสอบแต่ละ Field**:
+   - **name**: ต้องมีและยาวอย่างน้อย 3 ตัวอักษร
+   - **email**: ต้องมีและมีเครื่องหมาย `@`
+   - **age**: ต้องมีและมากกว่าหรือเท่ากับ 18
+   - **password**: ต้องมีและยาวอย่างน้อย 6 ตัวอักษร
+   - **agreeToTerms**: ต้องเป็น `true`
 
-   | Field | Valid User | Invalid User | ผลการตรวจสอบ |
-   |-------|------------|--------------|--------------|
-   | name | "John Doe" (8 ตัว) ✅ | "Jo" (2 ตัว) ❌ | ต้องมีอย่างน้อย 3 ตัวอักษร |
-   | email | "john@example.com" ✅ | "invalidemail" ❌ | ต้องมี @ |
-   | age | 25 ✅ | 15 ❌ | ต้อง >= 18 |
-   | password | "securepass123" (13 ตัว) ✅ | "pass" (4 ตัว) ❌ | ต้องมีอย่างน้อย 6 ตัวอักษร |
-   | agreeToTerms | true ✅ | false ❌ | ต้องยอมรับเงื่อนไข |
+3. **คืนค่า Object**:
+   - `isValid`: `true` ถ้าไม่มี errors
+   - `errors`: Array ของข้อผิดพลาดทั้งหมด
 
-3. **คืนค่า Object** ที่มี:
-   - `isValid` - เป็น `true` เมื่อไม่มี errors
-   - `errors` - Array ของข้อผิดพลาดทั้งหมด
+4. **ผลลัพธ์**:
+   - `validUser` ผ่านทุกเงื่อนไข → `isValid: true`
+   - `invalidUser` ไม่ผ่าน 5 เงื่อนไข → `isValid: false` พร้อม errors
 
 ---
 
-## 2.4 ไฟล์ `04-loops.js`
+## 2.4 ไฟล์ [04-loops.js](./04-loops.js) - 9. Chaining methods
 
-### 9. Chaining Methods
-
-#### 📝 โค้ด
+### โค้ด
 
 ```javascript
+console.log("\nMethod chaining:");
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
+// Filter even > map to string > join
 const evenStrings = data
-  .filter((n) => n % 2 === 0)    // [2, 4, 6, 8, 10]
-  .map((n) => `${n}²=${n * n}`)  // ["2²=4", "4²=16", ...]
-  .join(", ");                    // "2²=4, 4²=16, ..."
-
+  .filter((n) => n % 2 === 0) // [2, 4, 6, 8, 10]
+  .map((n) => `${n}²=${n * n}`) // ["2²=4", "4²=16", ...]
+  .join(", "); // "2²=4, 4²=16, ..."
 console.log("Even numbers squared:", evenStrings);
 
+// Calculate average with reduce and length
 const numbers2 = [10, 20, 30, 40, 50];
 const average = numbers2.reduce((sum, n) => sum + n, 0) / numbers2.length;
 console.log("Average:", average);
 ```
 
-#### 📤 ผลลัพธ์
+### ผลลัพธ์
 
 ```
+Method chaining:
 Even numbers squared: 2²=4, 4²=16, 6²=36, 8²=64, 10²=100
 Average: 30
 ```
 
-#### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-**Method Chaining** คือการเรียก method ต่อเนื่องกัน เพราะแต่ละ method คืนค่าที่สามารถเรียก method ต่อได้
+1. **Method Chaining**: เรียกใช้หลาย Method ต่อกันในบรรทัดเดียว
 
-1. **ขั้นตอนที่ 1: `filter()`**
+2. **ขั้นตอนการทำงาน**:
    ```
    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-   ↓ กรองเฉพาะเลขคู่ (n % 2 === 0)
+           ↓ filter(n => n % 2 === 0)
    [2, 4, 6, 8, 10]
-   ```
-
-2. **ขั้นตอนที่ 2: `map()`**
-   ```
-   [2, 4, 6, 8, 10]
-   ↓ แปลงเป็น string แสดงกำลังสอง
+           ↓ map(n => `${n}²=${n * n}`)
    ["2²=4", "4²=16", "6²=36", "8²=64", "10²=100"]
-   ```
-
-3. **ขั้นตอนที่ 3: `join()`**
-   ```
-   ["2²=4", "4²=16", "6²=36", "8²=64", "10²=100"]
-   ↓ รวมด้วย ", "
+           ↓ join(", ")
    "2²=4, 4²=16, 6²=36, 8²=64, 10²=100"
    ```
 
-4. **การคำนวณ Average**:
-   ```
-   reduce: 10 + 20 + 30 + 40 + 50 = 150
-   average: 150 / 5 = 30
-   ```
+3. **คำนวณค่าเฉลี่ย**:
+   - `reduce((sum, n) => sum + n, 0)` = 10+20+30+40+50 = 150
+   - หารด้วย `length` = 5
+   - ผลลัพธ์: 150 / 5 = 30
 
 ---
 
-### 10. Challenge: Student Grades
+## 2.4 ไฟล์ [04-loops.js](./04-loops.js) - 10. Challenge: Student Grades
 
-#### 📝 โค้ด
+### โค้ด
 
 ```javascript
 const students = [
@@ -402,6 +374,8 @@ const students = [
   { name: "Diana", score: 92 },
   { name: "Eve", score: 88 },
 ];
+console.log("\nChallenge: Student Analysis");
+console.log("Students:", students);
 
 // 1. Get all names
 const names = students.map((s) => s.name);
@@ -409,10 +383,14 @@ console.log("Names:", names.join(", "));
 
 // 2. Filter high scorers (>= 85)
 const highScorers = students.filter((s) => s.score >= 85);
-console.log("High scorers:", highScorers.map((s) => `${s.name} (${s.score})`).join(", "));
+console.log(
+  "High scorers:",
+  highScorers.map((s) => `${s.name} (${s.score})`).join(", ")
+);
 
 // 3. Calculate class average
-const classAverage = students.reduce((sum, s) => sum + s.score, 0) / students.length;
+const classAverage =
+  students.reduce((sum, s) => sum + s.score, 0) / students.length;
 console.log("Class average:", classAverage.toFixed(2));
 
 // 4. Find top scorer
@@ -426,14 +404,21 @@ const summary = students
     grade: s.score >= 90 ? "A" : s.score >= 80 ? "B" : "C",
   }))
   .sort((a, b) => b.score - a.score);
-
 console.log("Summary (sorted):");
 summary.forEach((s) => console.log(` ${s.name}: ${s.score} (${s.grade})`));
 ```
 
-#### 📤 ผลลัพธ์
+### ผลลัพธ์
 
 ```
+Challenge: Student Analysis
+Students: [
+  { name: 'Alice', score: 95 },
+  { name: 'Bob', score: 75 },
+  { name: 'Charlie', score: 85 },
+  { name: 'Diana', score: 92 },
+  { name: 'Eve', score: 88 }
+]
 Names: Alice, Bob, Charlie, Diana, Eve
 High scorers: Alice (95), Charlie (85), Diana (92), Eve (88)
 Class average: 87.00
@@ -446,48 +431,29 @@ Summary (sorted):
  Bob: 75 (C)
 ```
 
-#### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-1. **ดึงชื่อทั้งหมด (`map`)**:
-   ```
-   students.map((s) => s.name)
-   → ["Alice", "Bob", "Charlie", "Diana", "Eve"]
-   ```
+1. **`map()` ดึงชื่อ**: แปลง Array of Objects เป็น Array of Names
 
-2. **กรองคนที่ได้คะแนนสูง (`filter`)**:
-   | นักเรียน | คะแนน | >= 85? |
-   |----------|-------|--------|
-   | Alice | 95 | ✅ |
-   | Bob | 75 | ❌ |
-   | Charlie | 85 | ✅ |
-   | Diana | 92 | ✅ |
-   | Eve | 88 | ✅ |
+2. **`filter()` กรอง High Scorers**: เลือกเฉพาะคนที่คะแนน >= 85
 
-3. **คำนวณค่าเฉลี่ย (`reduce`)**:
-   ```
-   (95 + 75 + 85 + 92 + 88) / 5 = 435 / 5 = 87.00
-   ```
+3. **`reduce()` หาค่าเฉลี่ย**: รวมคะแนนทั้งหมด (95+75+85+92+88=435) หาร 5 = 87
 
-4. **หาคนที่ได้คะแนนสูงสุด (`reduce`)**:
-   | เปรียบเทียบ | top | s | ผลลัพธ์ |
-   |-------------|-----|---|---------|
-   | รอบ 1 | Alice(95) | Bob(75) | Alice(95) |
-   | รอบ 2 | Alice(95) | Charlie(85) | Alice(95) |
-   | รอบ 3 | Alice(95) | Diana(92) | Alice(95) |
-   | รอบ 4 | Alice(95) | Eve(88) | Alice(95) |
+4. **`reduce()` หาคะแนนสูงสุด**: เปรียบเทียบคะแนนแต่ละคน เก็บคนที่คะแนนสูงกว่า
 
-5. **สร้างสรุปพร้อมเกรด**:
-   - ใช้ **Spread Operator** (`...s`) เพื่อ copy properties เดิม
-   - เพิ่ม property `grade` ด้วย **Ternary Operator**
-   - เรียงลำดับด้วย `sort()` จากคะแนนสูงไปต่ำ
+5. **สร้าง Summary**:
+   - `map()` เพิ่ม property `grade` ด้วย Spread Operator (`...s`)
+   - `sort()` เรียงจากคะแนนสูงไปต่ำ (`b.score - a.score`)
 
 ---
 
-## 2.5 ไฟล์ `05-integration.js` - Quiz Application
+## 2.5 ไฟล์ [05-integration.js](./05-integration.js) - Activity 5: Integration - Quiz Application
 
-### 📝 โค้ด
+### โค้ด
 
 ```javascript
+console.log("🎯 === QUIZ APPLICATION === 🎯\n");
+
 // Quiz data
 const quizzes = [
   {
@@ -517,7 +483,6 @@ const quizzes = [
   },
 ];
 
-// Quiz results
 let results = [];
 
 // Process each quiz
@@ -535,6 +500,7 @@ quizzes.forEach((quiz, index) => {
 
 // Display results
 console.log("QUIZ RESULTS:");
+console.log("─".repeat(60));
 results.forEach((result) => {
   const status = result.isCorrect ? "✅ CORRECT" : "❌ WRONG";
   console.log(`Q${result.questionNum}: ${result.question}`);
@@ -543,11 +509,14 @@ results.forEach((result) => {
     console.log(` Correct answer: ${result.correctAnswer}`);
   }
   console.log(` ${status}`);
+  console.log();
 });
 
 // Calculate score
 const correctCount = results.filter((r) => r.isCorrect).length;
 const score = (correctCount / results.length) * 100;
+
+console.log("─".repeat(60));
 console.log(`FINAL SCORE: ${correctCount}/${results.length} (${score.toFixed(1)}%)`);
 
 // Grade assignment
@@ -557,24 +526,15 @@ else if (score >= 80) grade = "B";
 else if (score >= 70) grade = "C";
 else if (score >= 60) grade = "D";
 else grade = "F";
+
 console.log(`GRADE: ${grade}`);
-
-// Statistics using reduce
-const byCorrectness = results.reduce(
-  (acc, r) => {
-    acc[r.isCorrect ? "correct" : "incorrect"]++;
-    return acc;
-  },
-  { correct: 0, incorrect: 0 }
-);
-console.log("Answer breakdown:");
-console.log(` ✅ Correct: ${byCorrectness.correct}`);
-console.log(` ❌ Incorrect: ${byCorrectness.incorrect}`);
 ```
 
-### 📤 ผลลัพธ์ (ตัวอย่าง - ค่าจะแตกต่างกันในแต่ละครั้งเพราะใช้ random)
+### ผลลัพธ์ (ตัวอย่าง - ผลลัพธ์จะแตกต่างกันในแต่ละครั้งเนื่องจากใช้ Random)
 
 ```
+🎯 === QUIZ APPLICATION === 🎯
+
 QUIZ RESULTS:
 ────────────────────────────────────────────────────────────
 Q1: What is 5 + 3?
@@ -617,80 +577,21 @@ Answer breakdown:
  ❌ Incorrect: 2
 ```
 
-### 💡 อธิบายการทำงาน
+### อธิบายการทำงาน
 
-#### 1. โครงสร้างข้อมูล Quiz
+1. **โครงสร้างข้อมูล Quiz**:
+   - แต่ละ Quiz เป็น Object ที่มี `question`, `options` (Array), และ `correctAnswer` (index)
 
-```javascript
-{
-  question: "What is 5 + 3?",
-  options: ["8", "7", "6", "9"],  // index: 0, 1, 2, 3
-  correctAnswer: 0                 // คำตอบที่ถูกคือ index 0 = "8"
-}
-```
+2. **จำลองการตอบ**: ใช้ `Math.floor(Math.random() * 4)` สุ่มคำตอบ 0-3
 
-#### 2. การประมวลผล Quiz (`forEach`)
+3. **เก็บผลลัพธ์**: สร้าง Object สำหรับแต่ละคำถาม และ push ลง Array `results`
 
-```
-สำหรับแต่ละข้อ:
-1. สุ่มคำตอบ: Math.floor(Math.random() * 4) → 0, 1, 2, หรือ 3
-2. ตรวจสอบ: userAnswer === quiz.correctAnswer
-3. บันทึกผลลัพธ์ลง results array
-```
+4. **แสดงผลลัพธ์**: วนลูป `results` แสดงคำถาม, คำตอบผู้ใช้, และสถานะถูก/ผิด
 
-#### 3. การคำนวณคะแนน
+5. **คำนวณคะแนน**:
+   - `filter((r) => r.isCorrect)` หาจำนวนข้อที่ตอบถูก
+   - คำนวณเปอร์เซ็นต์ = (ถูก / ทั้งหมด) × 100
 
-```javascript
-// นับจำนวนข้อที่ตอบถูก
-const correctCount = results.filter((r) => r.isCorrect).length;
+6. **กำหนดเกรด**: ใช้ if-else ตรวจสอบช่วงคะแนน
 
-// คำนวณเปอร์เซ็นต์
-const score = (correctCount / results.length) * 100;
-// ถ้าถูก 3 จาก 5: (3 / 5) * 100 = 60%
-```
-
-#### 4. การกำหนดเกรด (Control Flow)
-
-| คะแนน | เกรด |
-|-------|------|
-| >= 90% | A |
-| >= 80% | B |
-| >= 70% | C |
-| >= 60% | D |
-| < 60% | F |
-
-#### 5. สถิติด้วย Reduce
-
-```javascript
-results.reduce(
-  (acc, r) => {
-    acc[r.isCorrect ? "correct" : "incorrect"]++;
-    return acc;
-  },
-  { correct: 0, incorrect: 0 }
-);
-```
-
-**การทำงาน**:
-| รอบ | isCorrect | acc (ก่อน) | acc (หลัง) |
-|-----|-----------|------------|------------|
-| 1 | true | {correct: 0, incorrect: 0} | {correct: 1, incorrect: 0} |
-| 2 | false | {correct: 1, incorrect: 0} | {correct: 1, incorrect: 1} |
-| 3 | true | {correct: 1, incorrect: 1} | {correct: 2, incorrect: 1} |
-| ... | ... | ... | ... |
-
----
-
-## 📌 สรุป Concepts ที่สำคัญ
-
-| Concept | ใช้ใน | คำอธิบาย |
-|---------|-------|----------|
-| **Object Methods** | 2.1, 2.2 | ฟังก์ชันภายใน Object ที่ใช้ `this` เข้าถึง properties |
-| **Property Shorthand** | 2.2 | เขียน `{ name }` แทน `{ name: name }` |
-| **Callback Function** | 2.2 | ส่งฟังก์ชันเป็น parameter ให้ฟังก์ชันอื่น |
-| **Short-Circuit** | 2.3 | `\|\|` และ `&&` หยุดประเมินเมื่อรู้ผลลัพธ์ |
-| **Optional Chaining** | 2.3 | `?.` เข้าถึง property อย่างปลอดภัย |
-| **Method Chaining** | 2.4 | เรียก method ต่อเนื่องกัน |
-| **Array Methods** | 2.4, 2.5 | `map`, `filter`, `reduce`, `forEach` |
-| **Spread Operator** | 2.4 | `...obj` copy properties ทั้งหมด |
-| **Ternary Operator** | 2.4, 2.5 | `condition ? valueIfTrue : valueIfFalse` |
+7. **สถิติ**: ใช้ `reduce()` นับจำนวนถูก/ผิด โดยสร้าง Object `{ correct: 0, incorrect: 0 }`
